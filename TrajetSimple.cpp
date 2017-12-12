@@ -119,6 +119,8 @@ const string TrajetSimple::nomTransport(crduTransport transport) const {
             return "Bateau";
         case Avion:
             return "Avion";
+        default:
+            return "Error";
     }
 }
 

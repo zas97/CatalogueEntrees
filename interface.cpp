@@ -42,7 +42,7 @@ crduTransport getTransport(){
             cout<<"s'il vous plait, choisisez un transport de la liste"<<endl;
             continue;
         }
-        return static_cast<crduTransport > (transport);
+        return static_cast<crduTransport > (transport-1);
     }
 
 
