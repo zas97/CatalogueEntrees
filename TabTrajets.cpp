@@ -42,7 +42,7 @@ bool TabTrajets::AjouterTrajet(const Trajet &t)
     return ajuste;
 }
 
-bool TabTrajets::AjouterTrajet(char *depart, char *destination, crduTransport transport)
+bool TabTrajets::AjouterTrajet(char *depart, char *destination, char *transport)
 {
     bool ajuste = false;
     if(nElements >= taille){
@@ -55,7 +55,7 @@ bool TabTrajets::AjouterTrajet(char *depart, char *destination, crduTransport tr
 
 }
 
-bool TabTrajets::AjouterTrajet(char **villes, const crduTransport * transports, const int nbElements)
+bool TabTrajets::AjouterTrajet(char **villes,  char ** transports, const int nbElements)
 {
     bool ajuste = false;
     if(nElements >= taille){

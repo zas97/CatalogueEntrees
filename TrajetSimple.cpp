@@ -25,7 +25,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 void TrajetSimple::Afficher(void) const{
-    cout<<"de "<<depart<<" a "<<destination<<" en "<<nomTransport(transport);
+    cout<<"de "<<depart<<" a "<<destination<<" en "<<transport;
 }
 
 const char * TrajetSimple::getDepart() const{
@@ -43,13 +43,16 @@ TrajetSimple * TrajetSimple::Clone() const{
 const string TrajetSimple::toString() const {
     string dep(depart);
     string dest(destination);
-    return "TS "+dep+"-"+dest+" "+nomTransport(transport);
+    return "TS "+dep+" "+dest+" "+transport;
 
 }
 
-const string TrajetSimple::getTransport() const{
-    return nomTransport(transport);
+const string TrajetSimple::getTransport() const {
+    string r(transport);
+    return r;
 }
+
+
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -66,7 +69,7 @@ const string TrajetSimple::getTransport() const{
  * @param dest
  * @param trans
  */
-TrajetSimple::TrajetSimple(const char * dep, const char * dest, crduTransport trans)
+TrajetSimple::TrajetSimple(const char * dep, const char * dest, char * trans)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
@@ -74,19 +77,21 @@ TrajetSimple::TrajetSimple(const char * dep, const char * dest, crduTransport tr
     //la longuer de la chaine depart est egal celle du nom passe plus 1
     //car on doit tenir en compte que il faut allour quelque parte la fin
     //de chaine (le caractere \0)
-    depart = new char[50];
-    destination = new char[50];
+    depart = new char[LONGUEUR_VILLES];
+    destination = new char[LONGUEUR_VILLES];
+    transport = new char[LONGUEUR_TRANSPORT];
     strcpy(depart,dep);
     strcpy(destination,dest);
-    transport = trans;
+    strcpy(transport,trans);
 
 } //----- Fin de TrajetSimple
 TrajetSimple::TrajetSimple(const TrajetSimple &t){
-    depart = new char[50];
-    destination = new char[50];
+    depart = new char[LONGUEUR_VILLES];
+    destination = new char[LONGUEUR_VILLES];
+    transport = new char[LONGUEUR_TRANSPORT];
     strcpy(depart,t.depart);
     strcpy(destination,t.destination);
-    transport = t.transport;
+    strcpy(transport,t.transport);
 }
 
 /**
@@ -101,6 +106,7 @@ TrajetSimple::~TrajetSimple ( )
 #endif
     delete [] depart;
     delete [] destination;
+    delete [] transport;
 }
 
 
@@ -109,18 +115,5 @@ TrajetSimple::~TrajetSimple ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-const string TrajetSimple::nomTransport(crduTransport transport) const {
-    switch(transport){
-        case Train:
-            return "Train";
-        case Auto:
-            return "Auto";
-        case Bateau:
-            return "Bateau";
-        case Avion:
-            return "Avion";
-        default:
-            return "Error";
-    }
-}
+
 

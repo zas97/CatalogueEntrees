@@ -15,17 +15,11 @@
 //--------------------------------------------------- Interfaces utilisées
     //Trajet
 //------------------------------------------------------------- Constantes
+const int LONGUEUR_TRANSPORT = 10;
+const int LONGUEUR_VILLES = 50;
 //------------------------------------------------------------------ Types
 
-/**
- * les moyen des transport sont representes par une type enum
- * cella il est affiche comme un entier
- * 0: Train
- * 1: Auto
- * 2: Bateau
- * 3: Avion
- */
-enum crduTransport { Train,Auto,Bateau,Avion };
+
 
 /**
  * TrajetSimple qui contient
@@ -70,7 +64,7 @@ public:
 
     const string toString() const;
 
-    const string getTransport() const;
+    virtual const string getTransport() const;
 
 
 
@@ -82,7 +76,7 @@ public:
      * @param destination nom ville d'arrive
      * @param trans transport utilisé
      */
-    TrajetSimple (const char * depart, const char * destination, crduTransport trans);
+    TrajetSimple (const char * depart, const char * destination, char * trans);
 
 
 
@@ -107,10 +101,9 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-    const string nomTransport(crduTransport transport) const;
 
 //----------------------------------------------------- Attributs protégés
-    crduTransport transport;
+    char * transport;
     char * destination;
     char * depart;
 

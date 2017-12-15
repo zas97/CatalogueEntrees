@@ -40,6 +40,7 @@ public:
 
     bool EcrireFichier(char * nomFichier) const;
     bool LectureFichier(char * nomFichier);
+    void EffacerTrajets();
 
 
 //-------------------------------------------- Constructeurs - destructeur

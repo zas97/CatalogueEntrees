@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "TrajetCompose.h"
@@ -29,26 +30,23 @@ using namespace std;
 //} //----- Fin de Méthode
 const string TrajetCompose::toString() const{
     string r="TC ";
+    r+=to_string(nElements);
+    r+=" ";
     for(int i=0;i<nElements;i++){
         string aux(tabTrajets[i]->getDepart());
-        r+=aux+"-";
+        r+=aux+" ";
     }
     string aux(getDestination());
     r+=aux+" ";
     for(int i=0;i<nElements-1;i++){
-        r+=tabTrajets[i]->getTransport()+"-";
+        r+=tabTrajets[i]->getTransport()+" ";
     }
     r+=tabTrajets[nElements-1]->getTransport();
     return r;
 }
 
 const string TrajetCompose::getTransport() const{
-    string r="";
-    for(int i=0;i<nElements-1;i++){
-        r+=tabTrajets[i]->getTransport()+"-";
-    }
-    r+=tabTrajets[nElements-1]->getTransport();
-    return r;
+    return "Train";
 }
 
 void TrajetCompose::Afficher() const{

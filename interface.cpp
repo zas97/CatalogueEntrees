@@ -16,7 +16,7 @@ les differents options du menu
 
 using namespace std;
 
-
+static const string transports[] = {"Train","Auto","Bateau","Avion"};
 
 
 
@@ -26,7 +26,7 @@ using namespace std;
  * dans la liste des moyens disponible
  * @return moyen de transport choisit
  */
-crduTransport getTransport(){
+string getTransport(){
     //il demande de nouveau le trajet si l'utilisateur
     //ne saisit pas correctement
     while(true) {
@@ -42,7 +42,7 @@ crduTransport getTransport(){
             cout<<"s'il vous plait, choisisez un transport de la liste"<<endl;
             continue;
         }
-        return static_cast<crduTransport > (transport-1);
+        return transports[transport-1];
     }
 
 
@@ -67,12 +67,13 @@ int main(){
             //ajouter un trajet simple
             case 1 : {
                 cout << "ecrivez la ville de depart:" << endl;
-                char depart[50];
+                char depart[LONGUEUR_VILLES];
                 cin >> depart;
                 cout << "ecrivez la ville de destination:" << endl;
-                char destination[50];
+                char destination[LONGUEUR_VILLES];
                 cin >> destination;
-                crduTransport transport = getTransport();
+                char transport[LONGUEUR_TRANSPORT];
+                strcpy(transport,getTransport().c_str());
                 catalogue.AjouterTrajet(depart, destination, transport);
                 cout<<endl;
                 break;
@@ -84,20 +85,23 @@ int main(){
                 bool saisi = true;
                 int nTrajets = 0;
                 cout << "ecrivez la ville de depart du trajet:" << endl;
-                char depart[50];
+                char depart[LONGUEUR_VILLES];
                 cin >> depart;
+                bool premier = true;
                 while(saisi) {
-                    cout << "ecrivez la ville de destination du trajet:" << endl;
-                    cout<<"ecrivez -1 si vous voulez arreter la saisi"<<endl;
+                    cout << "ecrivez la prochain ville de destination du trajet:" << endl;
+                    if(!premier) cout<<"ecrivez -1 si vous avez deja saisi tout le trajet"<<endl;
                     char destination[50];
                     cin >> destination;
-                    if(strcmp(destination,"-1")==0){
+                    if(!premier && strcmp(destination,"-1")==0){
                         saisi=false;
                         break;
                     }
-                    crduTransport transport = getTransport();
+                    char transport[LONGUEUR_TRANSPORT];
+                    strcpy(transport,getTransport().c_str());
                     tc.AjouterTrajet(depart, destination, transport);
                     strcpy(depart,destination);
+                    premier = false;
                 }
                 catalogue.AjouterTrajet(tc);
                 break;
@@ -135,13 +139,13 @@ int main(){
                 cout<<"ecrivez le nom du fichier que vous voulez charger"<<endl;
                 char nom[20];
                 cin>>nom;
+                cout<<(catalogue.LectureFichier(nom) ? "lecture avec succes":"lecture echoue")<<endl;
                 break;
             }
             case 6:{
                 cout<<"ecrivez le nom du fichier que vous voulez sauvagarde"<<endl;
-//                char nom[20];
-//                cin>>nom;
-                char nom[] = "test.txt";
+                char nom[20];
+                cin>>nom;
                 catalogue.EcrireFichier(nom);
                 break;
             }

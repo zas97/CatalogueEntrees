@@ -63,7 +63,8 @@ public:
     TrajetCompose * Clone() const;
 
     const string toString() const;
-    virtual const string getTransport() const;
+
+    const string getTransport() const;
 
 
 

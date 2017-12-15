@@ -27,14 +27,71 @@ using namespace std;
 
 bool Catalogue::EcrireFichier(char * nomFichier) const{
     ofstream fichier(nomFichier);
+    fichier << nElements <<"\n";
     for(int i=0;i<nElements;i++){
         fichier << tabTrajets[i]->toString()<<"\n";
     }
     fichier.close();
+    return true;
+}
+
+void Catalogue::EffacerTrajets(){
+    for(int i=0;i<nElements;i++){
+        delete tabTrajets[i];
+    }
+    nElements = 0;
 }
 
 bool Catalogue::LectureFichier(char * nomFichier){
+    ifstream fichier;
+    fichier.open(nomFichier);
+    if(!fichier){
+        return false;
+    }
 
+    EffacerTrajets();
+    int nLignes;
+    fichier >> nLignes;
+    for(int i=0;i<nLignes;i++){
+        string type;
+        fichier >> type;
+        if(type == "TS"){
+            char depart[LONGUEUR_VILLES];
+            char destination[LONGUEUR_VILLES];
+            char transport[LONGUEUR_TRANSPORT];
+            fichier >> depart;
+            fichier >> destination;
+            fichier >> transport;
+            AjouterTrajet(depart,destination,transport);
+        }
+        else if(type == "TC"){
+            int nTrajets;
+            fichier >> nTrajets;
+            char ** villes = new char * [nTrajets+1];
+            char ** transports = new char * [nTrajets];
+            for(int i=0;i<nTrajets+1;i++){
+                villes[i] = new char [LONGUEUR_VILLES];
+                fichier >> villes[i];
+            }
+            for(int i=0;i<nTrajets;i++){
+                transports[i] = new char[LONGUEUR_TRANSPORT];
+                fichier >> transports[i];
+            }
+            AjouterTrajet(villes,transports,nTrajets);
+
+            //destructeurs
+            for(int i=0;i<nTrajets+1;i++){
+                delete [] villes[i];
+            }
+            for(int i=0;i<nTrajets;i++){
+                delete [] transports[i];
+            }
+            delete [] transports;
+            delete [] villes;
+        }
+
+    }
+    return true;
 }
 
 /**

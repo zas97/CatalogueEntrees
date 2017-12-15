@@ -73,7 +73,7 @@ public:
      * @return vrais si la taille du tableau a ete modifie pour ajouter
      *         faux si la taille n'a pas ete modifie
      */
-    bool AjouterTrajet(char *depart, char *destination, crduTransport transport);
+    bool AjouterTrajet(char *depart, char *destination, char *transport);
 
 
 
@@ -93,7 +93,7 @@ public:
      *         faux si la taille n'a pas ete modifie
      *
      */
-    bool AjouterTrajet(char **villes, const crduTransport *transports, const int nbElements);
+    bool AjouterTrajet(char **villes,  char **transports, const int nbElements);
 
 
     /**
