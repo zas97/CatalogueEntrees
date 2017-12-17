@@ -136,17 +136,151 @@ int main(){
                 break;
             }
             case 5:{
+                int ordre5;
                 cout<<"ecrivez le nom du fichier que vous voulez charger"<<endl;
-                char nom[20];
+                char nom[50];
                 cin>>nom;
-                cout<<(catalogue.LectureFichier(nom) ? "lecture avec succes":"lecture echoue")<<endl;
-                break;
+                cout<<"choisir parmi ses 4 scenarios svp"<<endl;
+                cout<<"1. je lis tout"<<endl;
+                cout<<"2. je ne lis que de type trajet simple/composee"<<endl;
+                cout<<"3. je lis les trajets avec depart ou destination specifiee"<<endl;
+                cout<<"4. je lis les trajets des numero de ligne indiquees"<<endl;
+                cout<<"tapez le numero de l'action que vous voulez realiser"<<endl;
+                cin>>ordre5;
+                switch(ordre5){
+                    case 1:{
+                        cout<<"tous les trajets:"<<endl;
+                        cout<<" "<<endl;
+                        cout<<(catalogue.LectureFichier1(nom) ? "lecture avec succes":"lecture echoue")<<endl;
+                        cout<<" "<<endl;
+                        break;//break case 5.1
+                    }
+                    case 2:{
+                        int ordre52;
+                        cout<<endl;
+                        cout<<"1. je lis les trajets simples"<<endl;
+                        cout<<"2. je lis les trajets composee"<<endl;
+                        cout<<"tapez le numero de l'action que vous voulez realiser"<<endl;
+                        cout<<endl;
+                        cin>>ordre52;
+                        switch(ordre52){
+                            case 1:{
+                                cout<<"tous les trajets simples:"<<endl;
+                                cout<<" "<<endl;
+                                cout<<(catalogue.LectureFichier21(nom) ? "lecture avec succes":"lecture echoue")<<endl;
+                                cout<<" "<<endl;
+                                break; //break case 5.2.1
+                            }
+                            case 2:{
+                                cout<<"tous les trajets composees:"<<endl;
+                                cout<<" "<<endl;
+                                cout<<(catalogue.LectureFichier22(nom) ? "lecture avec succes":"lecture echoue")<<endl;
+                                cout<<" "<<endl;
+                                break; //break case 5.2.2
+                            }
+                        }
+                        break;//break case 5.2
+                    }
+                    case 3:{
+                        cout << "ecrivez la ville de depart et de destination,ecrivez une espace entre" << endl;
+                        cout << " le depart et destination,si vous savez pas le depart ou la destination, mettez '00'"<<endl;
+                        cout << "eg: 00 Paris ou Lyon 00"<<endl;
+                        char depart[LONGUEUR_VILLES];
+                        char destination[LONGUEUR_VILLES];
+                        cin >> depart;
+                        cin >> destination;
+                        cout<<" "<<endl;
+                        cout<<(catalogue.DepartDestination(depart,destination,nom) ? "lecture avec succes":"lecture echoue")<<endl;
+                        cout<<" "<<endl;
+                        break; //break 5.3
+                    }
+                    case 4:{
+                        int a;
+                        int b;
+                        catalogue.LisSansAjout(nom);
+                        cout<<"ecrivez une intervalle eg:1 2"<<endl;
+                        cin>>a;
+                        cin>>b;
+                        if(a>=b) {
+                            cout<<"l'intervalle n'est pas valide"<<endl;
+                            break;
+                        }
+                        cout<<" "<<endl;
+                        cout<<(catalogue.Intervalle(a,b,nom) ? "lecture avec succes":"lecture echoue")<<endl;
+                        cout<<" "<<endl;
+                        break;
+                    }
+                }
+                break; //break de case 5
             }
             case 6:{
                 cout<<"ecrivez le nom du fichier que vous voulez sauvagarde"<<endl;
                 char nom[20];
                 cin>>nom;
-                catalogue.EcrireFichier(nom);
+                cout<<"1. Tous le trajets"<<endl;
+                cout<<"2. Les trajets simples"<<endl;
+                cout<<"3. Les trajets composes"<<endl;
+                cout<<"4. Selon la ville de depart"<<endl;
+                cout<<"5. Selon la ville d'arrive"<<endl;
+                cout<<"6. Selon la ville de depart et arrive"<<endl;
+                cout<<"7. Un interval des trajets"<<endl;
+                int choix;
+                cin>>choix;
+                switch(choix){
+                    case 1:{
+                        catalogue.EcrireFichier(nom);
+                        break;
+                    }
+                    case 2:{
+                        catalogue.EcrireFichier(nom,true,false);
+                        break;
+                    }
+                    case 3:{
+                        catalogue.EcrireFichier(nom,false,true);
+                        break;
+                    }
+                    case 4:{
+                        cout<<"ecrivez la ville de depart"<<endl;
+                        char depart[LONGUEUR_VILLES];
+                        cin>>depart;
+                        catalogue.EcrireFichier(nom,depart, true);
+                        break;
+                    }
+                    case 5:{
+                        cout<<"ecrivez la ville de destination"<<endl;
+                        char destination[LONGUEUR_VILLES];
+                        cin>>destination;
+                        catalogue.EcrireFichier(nom,destination, false);
+                        break;
+                    }
+                    case 6:{
+                        cout<<"ecrivez la ville de depart"<<endl;
+                        char depart[LONGUEUR_VILLES];
+                        cin>>depart;
+                        cout<<"ecrivez la ville de destination"<<endl;
+                        char destination[LONGUEUR_VILLES];
+                        cin>>destination;
+                        catalogue.EcrireFichier(nom,depart,destination);
+                        break;
+                    }
+                    case 7:{
+                        cout<<"vous allez a sauvagarder les trajets entre l'interval [premier,dernier]"<<endl;
+                        int premier;
+                        cout<<"saisisez le premier trajet"<<endl;
+                        cin>>premier;
+                        int dernier;
+                        cout<<"saisisez le dernier trajet"<<endl;
+                        cin>>dernier;
+                        catalogue.EcrireFichier(nom,premier,dernier);
+                        break;
+                    }
+                    default:{
+                        cout<<"l'option n'est pas dans la liste"<<endl;
+                        break;
+                    }
+                }
+                cout<<"fichier sauvagarde sous le nom: "<<nom<<endl;
+
                 break;
             }
             //en cas ou l'utilisateur saisit un numero qui est pas dans la liste

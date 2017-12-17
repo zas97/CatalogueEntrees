@@ -38,9 +38,17 @@ public:
      */
     int Recherche(const char *depart, const char *destination) const;
 
-    bool EcrireFichier(char * nomFichier) const;
-    bool LectureFichier(char * nomFichier);
-    void EffacerTrajets();
+
+    void EcrireFichier(char * nomFichier,bool simple = true,bool compose = true) const;
+    void EcrireFichier(char * nomFichier, int premier, int dernier) const;
+    void EcrireFichier(char * nomFichier,char * ville, bool estDepart) const;
+    void EcrireFichier(char * nomFichier,char * dep, char * arrive) const;
+    bool LisSansAjout(char* nomFichier) const;
+    bool LectureFichier1(char * nomFichier);
+    bool LectureFichier21(char * nomFichier);
+    bool LectureFichier22(char * nomFichier);
+    bool DepartDestination(char* dep,char* dest,char* nomFichier);
+    bool Intervalle(int a ,int b,char* nomFichier);
 
 
 //-------------------------------------------- Constructeurs - destructeur
