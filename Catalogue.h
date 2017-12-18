@@ -38,7 +38,7 @@ public:
      */
     int Recherche(const char *depart, const char *destination) const;
 
-    
+
     /**
      * sauvegarde un catalogue a un fichier, par defaut les la variable simple et compose
      * sont tous vrai, dans ce cas la, il correspond au le cas qu'on sauvegarde tous les trajets
