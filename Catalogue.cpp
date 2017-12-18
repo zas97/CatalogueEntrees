@@ -549,19 +549,17 @@ void Catalogue::EcrireFichier(char * nomFichier,bool simple,bool compose) const{
 }
 void Catalogue::EcrireFichier(char * nomFichier, int premier, int dernier) const{
     ofstream fichier(nomFichier);
-    if(premier < 0 or premier >= nElements or premier > dernier){
-        cerr<<"intervall dehors catalogue"<<endl;
+    premier--;
+    dernier--;
+    if(premier >= nElements or premier > dernier or dernier < 0){
         fichier.close();
         return;
     }
-    if(dernier < 0 or dernier >= nElements){
-        cerr<<"intervall dehors catalogue"<<endl;
-        fichier.close();
-        return;
-    }
+    premier = max(0,premier);
+    dernier = min(nElements-1,dernier);
 
     bool first = true;
-    for(int i=premier-1;i<=dernier-1;i++){
+    for(int i=premier;i<=dernier;i++){
         if(!first) {
             fichier << "\n";
         }
