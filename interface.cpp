@@ -214,9 +214,12 @@ int main(){
                 break; //break de case 5
             }
             case 6:{
-                cout<<"ecrivez le nom du fichier que vous voulez sauvagarde"<<endl;
+                cout<<endl;
+                cout<<"ecrivez le chemin du fichier que vous voulez sauvagarde"<<endl;
                 char nom[20];
                 cin>>nom;
+                cout<<endl;
+                cout<<"vous voulez sauvegarde...?"<<endl;
                 cout<<"1. Tous le trajets"<<endl;
                 cout<<"2. Les trajets simples"<<endl;
                 cout<<"3. Les trajets composes"<<endl;
